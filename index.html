@@ -1,1 +1,718 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>FlameGrowl - Developer Profile</title> <style> @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap'); * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Space Grotesk', sans-serif; color: #ffffff; overflow-x: hidden; background: #000; } /* Video Background */ .video-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; } .video-background video { min-width: 100%; min-height: 100%; width: auto; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; } .video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(2px); z-index: -1; } .container { max-width: 1400px; margin: 0 auto; padding: 0 30px; } /* Header */ header { padding: 100px 0 80px; text-align: center; } .profile-image { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; font-size: 4rem; box-shadow: 0 0 60px rgba(102, 126, 234, 0.6); animation: float 3s ease-in-out infinite; } @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } } h1 { font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 15px; letter-spacing: -2px; } .tagline { font-size: 1.4rem; color: #a0aec0; margin-bottom: 25px; font-weight: 300; } .verse { max-width: 700px; margin: 0 auto; padding: 25px 35px; background: rgba(102, 126, 234, 0.1); border-left: 4px solid #667eea; border-radius: 12px; font-style: italic; color: #cbd5e0; backdrop-filter: blur(10px); } .verse strong { color: #667eea; } /* Grid Layout */ .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin: 60px 0; } .card { background: rgba(20, 20, 40, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 20px; padding: 35px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; } .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #667eea, #764ba2, #f093fb); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; } .card:hover { transform: translateY(-10px); border-color: rgba(102, 126, 234, 0.5); box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3); } .card:hover::before { transform: scaleX(1); } .card h3 { font-size: 1.8rem; margin-bottom: 18px; color: #667eea; font-weight: 600; } .card p { color: #cbd5e0; line-height: 1.7; margin-bottom: 20px; } .card ul { list-style: none; padding: 0; } .card ul li { padding: 10px 0; color: #a0aec0; position: relative; padding-left: 25px; transition: color 0.3s; } .card ul li::before { content: '→'; position: absolute; left: 0; color: #667eea; font-weight: bold; } .card ul li:hover { color: #cbd5e0; } a { color: #667eea; text-decoration: none; font-weight: 500; position: relative; transition: all 0.3s; } a:hover { color: #f093fb; } /* Skills Section */ .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 40px 0; } .skill { background: rgba(102, 126, 234, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 16px; padding: 30px; text-align: center; transition: all 0.3s; } .skill:hover { background: rgba(102, 126, 234, 0.2); transform: scale(1.05); border-color: rgba(102, 126, 234, 0.5); } .skill h4 { color: #667eea; font-size: 1.3rem; margin-bottom: 12px; } .skill p { color: #a0aec0; font-size: 0.95rem; } /* Contact Section */ .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 40px 0; } .contact-card { background: rgba(102, 126, 234, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 35px; text-align: center; transition: all 0.3s; } .contact-card:hover { background: rgba(102, 126, 234, 0.25); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3); } .contact-card h4 { color: #667eea; font-size: 1.4rem; margin-bottom: 15px; } .contact-card p { color: #cbd5e0; margin: 10px 0; } /* Section Headers */ .section-header { text-align: center; margin: 80px 0 50px; } .section-header h2 { font-size: 3rem; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 15px; } .section-header .underline { width: 80px; height: 4px; background: linear-gradient(90deg, #667eea, #764ba2); margin: 0 auto; border-radius: 2px; } /* Footer */ footer { text-align: center; padding: 60px 0; margin-top: 100px; border-top: 1px solid rgba(102, 126, 234, 0.2); color: #718096; } /* Audio Player */ .audio-player { position: fixed; bottom: 30px; right: 30px; z-index: 1000; transition: all 0.3s ease; } .player-toggle { background: linear-gradient(135deg, #667eea, #764ba2); border: none; width: 60px; height: 60px; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(102, 126, 234, 0.6); border: 2px solid rgba(255, 255, 255, 0.2); } .player-toggle:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(102, 126, 234, 0.8); } .player-content { position: absolute; bottom: 70px; right: 0; background: rgba(20, 20, 40, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 20px; padding: 20px 25px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); min-width: 280px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; } .player-content.active { opacity: 1; visibility: visible; transform: translateY(0); } .player-content h4 { color: #667eea; margin-bottom: 15px; font-size: 1.1rem; text-align: center; } .audio-controls { display: flex; align-items: center; gap: 15px; } .play-btn { background: linear-gradient(135deg, #667eea, #764ba2); border: none; width: 50px; height: 50px; border-radius: 50%; color: white; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); } .play-btn:hover { transform: scale(1.1); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6); } .volume-control { flex: 1; display: flex; align-items: center; gap: 10px; } .volume-icon { color: #667eea; font-size: 1.2rem; } .volume-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 3px; background: rgba(102, 126, 234, 0.3); outline: none; } .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); cursor: pointer; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5); } .volume-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); cursor: pointer; border: none; } /* Responsive */ @media (max-width: 768px) { .grid, .skills-grid, .contact-grid { grid-template-columns: 1fr; } h1 { font-size: 2.5rem; } .section-header h2 { font-size: 2rem; } .audio-player { bottom: 20px; right: 20px; } .player-content { right: 0; left: 0; margin: 0 20px; min-width: auto; } } /* Custom Scrollbar */ ::-webkit-scrollbar { width: 10px; } ::-webkit-scrollbar-track { background: #0a0a0a; } ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #667eea, #764ba2); border-radius: 5px; } ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #764ba2, #f093fb); } </style> </head> <body> <!-- Video Background --> <div class="video-background"> <video id="bgVideo" autoplay muted loop playsinline> <source src="https://neonstudios.dev/bg-1.mp4" type="video/mp4"> </video> </div> <div class="video-overlay"></div> <!-- Click to Unmute Overlay --> <div id="unmuteOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(5px);"> <div style="text-align: center; color: white;"> <div style="font-size: 4rem; margin-bottom: 20px; animation: pulse 1.5s ease-in-out infinite;">🔊</div> <h2 style="font-size: 2rem; margin-bottom: 10px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Click anywhere to start</h2> <p style="font-size: 1.2rem; color: #a0aec0;">Experience with sound</p> </div> </div> <style> @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } } </style> <!-- Audio Player --> <div class="audio-player"> <button class="player-toggle" id="playerToggle">🎵</button> <div class="player-content" id="playerContent"> <h4>Video Controls</h4> <div class="audio-controls"> <button class="play-btn" id="playBtn">⏸</button> <div class="volume-control"> <span class="volume-icon">🔊</span> <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50"> </div> </div> </div> </div> <header> <div class="container"> <div class="profile-image">🔥</div> <h1>FlameGrowl</h1> <p class="tagline">Developer & Creator | 15 Years Old | Germany</p> <div class="verse"> <strong>Philippians 4:13</strong> — "I can do all this through him who gives me strength." </div> </div> </header> <main class="container"> <!-- About Section --> <div class="section-header"> <h2>About Me</h2> <div class="underline"></div> </div> <div class="grid"> <div class="card"> <h3>Who I Am</h3> <p>I'm a passionate 15-year-old developer from Germany with a love for creating digital experiences. As a Christian, I believe in using my talents to make a positive impact in the tech world.</p> </div> <div class="card"> <h3>My Journey</h3> <p>Currently expanding my skillset by learning C++ while building on my solid foundation in C# and Unity. Every project is an opportunity to grow and learn something new.</p> </div> </div> <!-- Projects Section --> <div class="section-header"> <h2>Projects & Ventures</h2> <div class="underline"></div> </div> <div class="grid"> <div class="card"> <h3>NeonStudios Development</h3> <p>Proud owner and founder of NeonStudios Development, where creativity meets technical excellence.</p> <ul> <li>Website: <a href="https://neonstudios.dev" target="_blank">neonstudios.dev</a></li> <li>GitHub: <a href="https://github.com/neonstudios-dev" target="_blank">github.com/neonstudios-dev</a></li> <li>Focus on innovative development solutions</li> </ul> </div> <div class="card"> <h3>2c2d Minecraft Server</h3> <p>Managing and operating a thriving Minecraft community that brings players together for unique gaming experiences.</p> <ul> <li>Server: <a href="https://2c2d.top" target="_blank">2c2d.top</a></li> <li>Community management</li> <li>Server administration & optimization</li> </ul> </div> <div class="card"> <h3>Personal Development</h3> <p>Continuously working on personal projects and contributing to open-source initiatives.</p> <ul> <li>GitHub: <a href="https://github.com/FlameGrowl-wq" target="_blank">github.com/FlameGrowl-wq</a></li> <li>Open source contributions</li> <li>Experimental projects & learning</li> </ul> </div> </div> <!-- Skills Section --> <div class="section-header"> <h2>Technical Skills</h2> <div class="underline"></div> </div> <div class="skills-grid"> <div class="skill"> <h4>C# Development</h4> <p>Experienced in building robust applications</p> </div> <div class="skill"> <h4>Unity Engine</h4> <p>Game development and interactive experiences</p> </div> <div class="skill"> <h4>C++ (Learning)</h4> <p>Expanding into systems programming</p> </div> <div class="skill"> <h4>Server Management</h4> <p>Minecraft server administration</p> </div> </div> <!-- Contact Section --> <div class="section-header"> <h2>Get In Touch</h2> <div class="underline"></div> </div> <div class="contact-grid"> <div class="contact-card"> <h4>Discord</h4> <p><strong>FlameGrowl#7615</strong></p> <a href="https://discord.gg/wrdWaAad7g" target="_blank">Join my Discord Server</a> </div> <div class="contact-card"> <h4>Email</h4> <a href="mailto:info@neonstudios.dev">info@neonstudios.dev</a> </div> <div class="contact-card"> <h4>GitHub</h4> <a href="https://github.com/FlameGrowl-wq" target="_blank">github.com/FlameGrowl-wq</a> </div> </div> </main> <footer> <div class="container"> <p>&copy; 2025 FlameGrowl. Made with passion and faith. 🔥</p> </div> </footer> <script> const video = document.getElementById('bgVideo'); const playBtn = document.getElementById('playBtn'); const volumeSlider = document.getElementById('volumeSlider'); const playerToggle = document.getElementById('playerToggle'); const playerContent = document.getElementById('playerContent'); const unmuteOverlay = document.getElementById('unmuteOverlay'); let isPlaying = true; let isPlayerOpen = false; // Set initial volume video.volume = 0.5; // Unmute overlay click unmuteOverlay.addEventListener('click', () => { video.muted = false; unmuteOverlay.style.display = 'none'; video.play(); }); // Toggle player panel playerToggle.addEventListener('click', (e) => { e.stopPropagation(); isPlayerOpen = !isPlayerOpen; playerContent.classList.toggle('active'); }); // Close player when clicking outside document.addEventListener('click', (e) => { if (isPlayerOpen && !playerContent.contains(e.target) && e.target !== playerToggle) { isPlayerOpen = false; playerContent.classList.remove('active'); } }); // Prevent closing when clicking inside player playerContent.addEventListener('click', (e) => { e.stopPropagation(); }); // Play/Pause functionality playBtn.addEventListener('click', () => { if (isPlaying) { video.pause(); playBtn.textContent = '▶'; isPlaying = false; } else { video.muted = false; video.play(); playBtn.textContent = '⏸'; isPlaying = true; } }); // Volume control volumeSlider.addEventListener('input', (e) => { video.volume = e.target.value / 100; video.muted = false; // Update volume icon based on level const volumeIcon = document.querySelector('.volume-icon'); if (e.target.value == 0) { volumeIcon.textContent = '🔇'; video.muted = true; } else if (e.target.value < 50) { volumeIcon.textContent = '🔉'; } else { volumeIcon.textContent = '🔊'; } }); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlameGrowl - Developer Profile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000;
+        }
+        
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        /* Header */
+        header {
+            padding: 100px 0 80px;
+            text-align: center;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 4rem;
+            box-shadow: 0 0 60px rgba(102, 126, 234, 0.6);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            color: #a0aec0;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+        
+        .verse {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 25px 35px;
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            border-radius: 12px;
+            font-style: italic;
+            color: #cbd5e0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .verse strong {
+            color: #667eea;
+        }
+        
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 60px 0;
+        }
+        
+        .card {
+            background: rgba(20, 20, 40, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            padding: 35px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 18px;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .card p {
+            color: #cbd5e0;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .card ul li {
+            padding: 10px 0;
+            color: #a0aec0;
+            position: relative;
+            padding-left: 25px;
+            transition: color 0.3s;
+        }
+        
+        .card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .card ul li:hover {
+            color: #cbd5e0;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        a:hover {
+            color: #f093fb;
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .skill {
+            background: rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .skill:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(1.05);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        
+        .skill h4 {
+            color: #667eea;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        
+        .skill p {
+            color: #a0aec0;
+            font-size: 0.95rem;
+        }
+        
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .contact-card {
+            background: rgba(102, 126, 234, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            background: rgba(102, 126, 234, 0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .contact-card h4 {
+            color: #667eea;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        
+        .contact-card p {
+            color: #cbd5e0;
+            margin: 10px 0;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin: 80px 0 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        
+        .section-header .underline {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+            color: #718096;
+        }
+        
+        /* Audio Player */
+        .audio-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .player-toggle {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .player-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.8);
+        }
+        
+        .player-content {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: rgba(20, 20, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 20px 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .player-content.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .player-content h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .play-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .volume-control {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .volume-icon {
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+        
+        .volume-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(102, 126, 234, 0.3);
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+        
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            cursor: pointer;
+            border: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid, .skills-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .audio-player {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .player-content {
+                right: 0;
+                left: 0;
+                margin: 0 20px;
+                min-width: auto;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #764ba2, #f093fb);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video id="bgVideo" autoplay muted loop playsinline preload="auto">
+            <source src="https://neonstudios.dev/bg-1.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+    
+    <!-- Click to Unmute Overlay -->
+    <div id="unmuteOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(5px);">
+        <div style="text-align: center; color: white;">
+            <div style="font-size: 4rem; margin-bottom: 20px; animation: pulse 1.5s ease-in-out infinite;">🔊</div>
+            <h2 style="font-size: 2rem; margin-bottom: 10px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Click anywhere to start</h2>
+            <p style="font-size: 1.2rem; color: #a0aec0;">Experience with sound</p>
+        </div>
+    </div>
+    
+    <!-- Audio Player -->
+    <div class="audio-player">
+        <button class="player-toggle" id="playerToggle">🎵</button>
+        <div class="player-content" id="playerContent">
+            <h4>Video Controls</h4>
+            <div class="audio-controls">
+                <button class="play-btn" id="playBtn">⏸</button>
+                <div class="volume-control">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <header>
+        <div class="container">
+            <div class="profile-image">🔥</div>
+            <h1>FlameGrowl</h1>
+            <p class="tagline">Developer & Creator | 15 Years Old | Germany</p>
+            <div class="verse">
+                <strong>Philippians 4:13</strong> — "I can do all this through him who gives me strength."
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- About Section -->
+        <div class="section-header">
+            <h2>About Me</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>Who I Am</h3>
+                <p>I'm a passionate 15-year-old developer from Germany with a love for creating digital experiences. As a Christian, I believe in using my talents to make a positive impact in the tech world.</p>
+            </div>
+            <div class="card">
+                <h3>My Journey</h3>
+                <p>Currently expanding my skillset by learning C++ while building on my solid foundation in C# and Unity. Every project is an opportunity to grow and learn something new.</p>
+            </div>
+        </div>
+        
+        <!-- Projects Section -->
+        <div class="section-header">
+            <h2>Projects & Ventures</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>NeonStudios Development</h3>
+                <p>Proud owner and founder of NeonStudios Development, where creativity meets technical excellence.</p>
+                <ul>
+                    <li>Website: <a href="https://neonstudios.dev" target="_blank">neonstudios.dev</a></li>
+                    <li>GitHub: <a href="https://github.com/neonstudios-dev" target="_blank">github.com/neonstudios-dev</a></li>
+                    <li>Focus on innovative development solutions</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>2c2d Minecraft Server</h3>
+                <p>Managing and operating a thriving Minecraft community that brings players together for unique gaming experiences.</p>
+                <ul>
+                    <li>Server: <a href="https://2c2d.top" target="_blank">2c2d.top</a></li>
+                    <li>Community management</li>
+                    <li>Server administration & optimization</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Personal Development</h3>
+                <p>Continuously working on personal projects and contributing to open-source initiatives.</p>
+                <ul>
+                    <li>GitHub: <a href="https://github.com/FlameGrowl-wq" target="_blank">github.com/FlameGrowl-wq</a></li>
+                    <li>Open source contributions</li>
+                    <li>Experimental projects & learning</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Skills Section -->
+        <div class="section-header">
+            <h2>Technical Skills</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="skills-grid">
+            <div class="skill">
+                <h4>C# Development</h4>
+                <p>Experienced in building robust applications</p>
+            </div>
+            <div class="skill">
+                <h4>Unity Engine</h4>
+                <p>Game development and interactive experiences</p>
+            </div>
+            <div class="skill">
+                <h4>C++ (Learning)</h4>
+                <p>Expanding into systems programming</p>
+            </div>
+            <div class="skill">
+                <h4>Server Management</h4>
+                <p>Minecraft server administration</p>
+            </div>
+        </div>
+        
+        <!-- Contact Section -->
+        <div class="section-header">
+            <h2>Get In Touch</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h4>Discord</h4>
+                <p><strong>FlameGrowl#7615</strong></p>
+                <a href="https://discord.gg/wrdWaAad7g" target="_blank">Join my Discord Server</a>
+            </div>
+            <div class="contact-card">
+                <h4>Email</h4>
+                <a href="mailto:info@neonstudios.dev">info@neonstudios.dev</a>
+            </div>
+            <div class="contact-card">
+                <h4>GitHub</h4>
+                <a href="https://github.com/FlameGrowl-wq" target="_blank">github.com/FlameGrowl-wq</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 FlameGrowl. Made with passion and faith. 🔥</p>
+        </div>
+    </footer>
+    
+    <script>
+        const video = document.getElementById('bgVideo');
+        const playBtn = document.getElementById('playBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const playerToggle = document.getElementById('playerToggle');
+        const playerContent = document.getElementById('playerContent');
+        const unmuteOverlay = document.getElementById('unmuteOverlay');
+        
+        let isPlaying = true;
+        let isPlayerOpen = false;
+        
+        // Set initial volume
+        video.volume = 0.5;
+        
+        // Unmute overlay click
+        unmuteOverlay.addEventListener('click', () => {
+            video.muted = false;
+            unmuteOverlay.style.display = 'none';
+            video.play();
+        });
+        
+        // Toggle player panel
+        playerToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isPlayerOpen = !isPlayerOpen;
+            playerContent.classList.toggle('active');
+        });
+        
+        // Close player when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isPlayerOpen && !playerContent.contains(e.target) && e.target !== playerToggle) {
+                isPlayerOpen = false;
+                playerContent.classList.remove('active');
+            }
+        });
+        
+        // Prevent closing when clicking inside player
+        playerContent.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        // Play/Pause functionality
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                video.pause();
+                playBtn.textContent = '▶';
+                isPlaying = false;
+            } else {
+                video.muted = false;
+                video.play();
+                playBtn.textContent = '⏸';
+                isPlaying = true;
+            }
+        });
+        
+        // Volume control
+        volumeSlider.addEventListener('input', (e) => {
+            video.volume = e.target.value / 100;
+            video.muted = false;
+            
+            // Update volume icon based on level
+            const volumeIcon = document.querySelector('.volume-icon');
+            if (e.target.value == 0) {
+                volumeIcon.textContent = '🔇';
+                video.muted = true;
+            } else if (e.target.value < 50) {
+                volumeIcon.textContent = '🔉';
+            } else {
+                volumeIcon.textContent = '🔊';
+            }
+        });
+    </script>
+</body>
+</html>
