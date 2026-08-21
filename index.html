@@ -1,725 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlameGrowl - Developer Profile</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            color: #ffffff;
-            overflow-x: hidden;
-            background: #000;
-        }
-        
-        /* Video Background */
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
-        }
-        
-        .video-background video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-        
-        .video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(2px);
-            z-index: -1;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
-        
-        /* Header */
-        header {
-            padding: 100px 0 80px;
-            text-align: center;
-        }
-        
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #00d4ff 0%, #ffffff 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            font-size: 4rem;
-            box-shadow: 0 0 60px rgba(0, 212, 255, 0.6);
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, #00d4ff 0%, #ffffff 50%, #00ffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            letter-spacing: -2px;
-        }
-        
-        .tagline {
-            font-size: 1.4rem;
-            color: #a0aec0;
-            margin-bottom: 25px;
-            font-weight: 300;
-        }
-        
-        .verse {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 25px 35px;
-            background: rgba(0, 212, 255, 0.1);
-            border-left: 4px solid #00d4ff;
-            border-radius: 12px;
-            font-style: italic;
-            color: #cbd5e0;
-            backdrop-filter: blur(10px);
-        }
-        
-        .verse strong {
-            color: #00d4ff;
-        }
-        
-        /* Grid Layout */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin: 60px 0;
-        }
-        
-        .card {
-            background: rgba(20, 20, 40, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 20px;
-            padding: 35px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #00d4ff, #ffffff, #00ffff);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(0, 212, 255, 0.5);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
-        }
-        
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 18px;
-            color: #00d4ff;
-            font-weight: 600;
-        }
-        
-        .card p {
-            color: #cbd5e0;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-        
-        .card ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .card ul li {
-            padding: 10px 0;
-            color: #a0aec0;
-            position: relative;
-            padding-left: 25px;
-            transition: color 0.3s;
-        }
-        
-        .card ul li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: #00d4ff;
-            font-weight: bold;
-        }
-        
-        .card ul li:hover {
-            color: #cbd5e0;
-        }
-        
-        a {
-            color: #00d4ff;
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: all 0.3s;
-        }
-        
-        a:hover {
-            color: #ffffff;
-        }
-        
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .skill {
-            background: rgba(0, 212, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .skill:hover {
-            background: rgba(0, 212, 255, 0.2);
-            transform: scale(1.05);
-            border-color: rgba(0, 212, 255, 0.5);
-        }
-        
-        .skill h4 {
-            color: #00d4ff;
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-        }
-        
-        .skill p {
-            color: #a0aec0;
-            font-size: 0.95rem;
-        }
-        
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-        
-        .contact-card {
-            background: rgba(0, 212, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 16px;
-            padding: 35px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .contact-card:hover {
-            background: rgba(0, 212, 255, 0.25);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
-        }
-        
-        .contact-card h4 {
-            color: #00d4ff;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-        }
-        
-        .contact-card p {
-            color: #cbd5e0;
-            margin: 10px 0;
-        }
-        
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin: 80px 0 50px;
-        }
-        
-        .section-header h2 {
-            font-size: 3rem;
-            background: linear-gradient(135deg, #00d4ff, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-        
-        .section-header .underline {
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #00d4ff, #ffffff);
-            margin: 0 auto;
-            border-radius: 2px;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            margin-top: 100px;
-            border-top: 1px solid rgba(0, 212, 255, 0.2);
-            color: #718096;
-        }
-        
-        /* Audio Player */
-        .audio-player {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        
-        .player-toggle {
-            background: linear-gradient(135deg, #00d4ff, #ffffff);
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            color: #000;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .player-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.8);
-        }
-        
-        .player-content {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            background: rgba(20, 20, 40, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 20px;
-            padding: 20px 25px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            min-width: 280px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-        }
-        
-        .player-content.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .player-content h4 {
-            color: #00d4ff;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            text-align: center;
-        }
-        
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .play-btn {
-            background: linear-gradient(135deg, #00d4ff, #ffffff);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            color: #000;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
-        }
-        
-        .play-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
-        }
-        
-        .volume-control {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .volume-icon {
-            color: #00d4ff;
-            font-size: 1.2rem;
-        }
-        
-        .volume-slider {
-            flex: 1;
-            -webkit-appearance: none;
-            appearance: none;
-            height: 6px;
-            border-radius: 3px;
-            background: rgba(0, 212, 255, 0.3);
-            outline: none;
-        }
-        
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #00d4ff, #ffffff);
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 212, 255, 0.5);
-        }
-        
-        .volume-slider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #00d4ff, #ffffff);
-            cursor: pointer;
-            border: none;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .grid, .skills-grid, .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section-header h2 {
-                font-size: 2rem;
-            }
-            
-            .audio-player {
-                bottom: 20px;
-                right: 20px;
-            }
-            
-            .player-content {
-                right: 0;
-                left: 0;
-                margin: 0 20px;
-                min-width: auto;
-            }
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #00d4ff, #ffffff);
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #ffffff, #00ffff);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>flamegrowl@neonstudios</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#11121a;
+  --bg-alt:#181a24;
+  --panel:#1c1e2a;
+  --border:#2b2e40;
+  --text:#cdd0e0;
+  --text-dim:#7a7e96;
+  --mauve:#c4a7ff;
+  --peach:#ffb787;
+  --green:#8fe3a8;
+  --red:#ff8a8a;
+  --blue:#8ac4ff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Space Grotesk',sans-serif;
+  line-height:1.6;
+}
+.mono{font-family:'JetBrains Mono',monospace}
+::selection{background:var(--mauve);color:#11121a}
+
+/* subtle grid texture */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(196,167,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196,167,255,0.035) 1px, transparent 1px);
+  background-size:42px 42px;
+  pointer-events:none;
+  z-index:0;
+}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ===== NAV ===== */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(17,18,26,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px}
+.nav-user{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--green)}
+.nav-user span{color:var(--text-dim)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:0.85rem;font-family:'JetBrains Mono',monospace;transition:color .2s}
+.nav-links a:hover{color:var(--mauve)}
+
+/* ===== HERO / TERMINAL ===== */
+header{padding:80px 0 60px}
+.term-window{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.5);
+}
+.term-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;
+  background:var(--bg-alt);
+  border-bottom:1px solid var(--border);
+}
+.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.term-title{margin-left:8px;font-size:0.78rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+.term-body{padding:28px 30px;font-family:'JetBrains Mono',monospace;font-size:0.92rem}
+.term-body .prompt{color:var(--green)}
+.term-body .path{color:var(--blue)}
+.term-line{margin-bottom:4px;white-space:pre-wrap}
+.ascii{color:var(--mauve);white-space:pre;line-height:1.15;font-size:0.72rem;float:left;margin-right:26px}
+.fetch-grid{overflow:hidden}
+.fetch-row{display:flex;gap:10px;margin-bottom:3px}
+.fetch-key{color:var(--peach);min-width:88px}
+.fetch-val{color:var(--text)}
+.cursor{display:inline-block;width:8px;height:1.1em;background:var(--mauve);vertical-align:middle;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+h1.name{
+  font-size:clamp(2.4rem,6vw,3.6rem);
+  font-weight:700;
+  margin:36px 0 6px;
+  letter-spacing:-1px;
+}
+h1.name .flame{color:var(--peach)}
+.role{color:var(--text-dim);font-size:1.1rem;margin-bottom:22px}
+.role .pipe{color:var(--border);margin:0 10px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.75rem;
+  padding:5px 12px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  color:var(--text-dim);
+  background:var(--bg-alt);
+}
+
+/* ===== SECTION HEADERS ===== */
+.sec-head{display:flex;align-items:baseline;gap:12px;margin:70px 0 28px}
+.sec-num{font-family:'JetBrains Mono',monospace;color:var(--mauve);font-size:0.85rem}
+.sec-head h2{font-size:1.6rem;font-weight:600}
+.sec-rule{flex:1;height:1px;background:var(--border)}
+
+/* ===== PROJECTS ===== */
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.projects{grid-template-columns:1fr}}
+.proj{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:24px;
+  transition:border-color .25s, transform .25s;
+  position:relative;
+}
+.proj:hover{border-color:var(--mauve);transform:translateY(-3px)}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.proj h3{font-size:1.15rem;font-weight:600}
+.proj-status{
+  font-family:'JetBrains Mono',monospace;font-size:0.68rem;
+  padding:3px 9px;border-radius:20px;white-space:nowrap;
+}
+.status-active{background:rgba(143,227,168,0.12);color:var(--green);border:1px solid rgba(143,227,168,0.3)}
+.status-live{background:rgba(138,196,255,0.12);color:var(--blue);border:1px solid rgba(138,196,255,0.3)}
+.proj p{color:var(--text-dim);font-size:0.92rem;margin-bottom:14px}
+.proj-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--peach);background:rgba(255,183,135,0.08);padding:3px 8px;border-radius:5px}
+.proj a.link{
+  font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--mauve);text-decoration:none;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.proj a.link:hover{color:var(--peach)}
+
+/* ===== STACK / RICE ===== */
+.stack-bar{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:4px;
+  overflow:hidden;
+}
+.stack-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;font-size:0.85rem;
+}
+.stack-row:last-child{border-bottom:none}
+.stack-key{color:var(--text-dim);width:130px;flex-shrink:0}
+.stack-val{color:var(--text);flex:1}
+.stack-tag{color:var(--green)}
+
+/* ===== CONTACT ===== */
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:720px){.contact-grid{grid-template-columns:1fr}}
+.contact{
+  background:var(--panel);border:1px solid var(--border);border-radius:10px;
+  padding:22px;text-align:center;transition:border-color .25s;
+}
+.contact:hover{border-color:var(--peach)}
+.contact .k{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.contact a{color:var(--mauve);text-decoration:none;font-weight:600;word-break:break-word}
+.contact a:hover{color:var(--peach)}
+
+footer{
+  margin-top:90px;padding:36px 0;border-top:1px solid var(--border);
+  text-align:center;color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:0.78rem;
+}
+footer .prompt{color:var(--green)}
+</style>
 </head>
 <body>
-    <!-- Video Background -->
-    <div class="video-background">
-        <video id="bgVideo" autoplay muted loop playsinline preload="auto">
-            <source src="https://neonstudios.dev/bg-1.mp4" type="video/mp4">
-        </video>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-user"><span>~/</span>flamegrowl</div>
+    <ul class="nav-links">
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#stack">stack</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <div class="term-window">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">flame@neonstudios:~</span>
+      </div>
+      <div class="term-body">
+        <div class="term-line"><span class="prompt">❯</span> <span class="path">~</span> neofetch</div>
+        <div style="overflow:hidden;margin-top:14px">
+<pre class="ascii">   /\
+  /  \
+ / /\ \
+/ /  \ \
+\/    \/</pre>
+          <div class="fetch-grid">
+            <div class="fetch-row"><span class="fetch-key">user</span><span class="fetch-val">flamegrowl@neonstudios.dev</span></div>
+            <div class="fetch-row"><span class="fetch-key">os</span><span class="fetch-val">CachyOS x86_64 (Arch-based)</span></div>
+            <div class="fetch-row"><span class="fetch-key">wm</span><span class="fetch-val">Hyprland (Wayland)</span></div>
+            <div class="fetch-row"><span class="fetch-key">shell</span><span class="fetch-val">fish + starship</span></div>
+            <div class="fetch-row"><span class="fetch-key">terminal</span><span class="fetch-val">kitty</span></div>
+            <div class="fetch-row"><span class="fetch-key">focus</span><span class="fetch-val">Minecraft infra · plugin & launcher dev</span></div>
+            <div class="fetch-row"><span class="fetch-key">building</span><span class="fetch-val">NeonStudios · 2c2d · RootedMC<span class="cursor"></span></span></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="video-overlay"></div>
-    
-    <!-- Click to Unmute Overlay -->
-    <div id="unmuteOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(5px);">
-        <div style="text-align: center; color: white;">
-            <div style="font-size: 4rem; margin-bottom: 20px; animation: pulse 1.5s ease-in-out infinite;">🔊</div>
-            <h2 style="font-size: 2rem; margin-bottom: 10px; background: linear-gradient(135deg, #00d4ff, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Click anywhere to start</h2>
-            <p style="font-size: 1.2rem; color: #a0aec0;">Experience with sound</p>
-        </div>
+
+    <h1 class="name"><span class="flame">Flame</span>Growl</h1>
+    <p class="role">Systems &amp; backend dev<span class="pipe">|</span>Minecraft infrastructure</p>
+    <div class="tags">
+      <span class="tag">C# / Avalonia</span>
+      <span class="tag">Java (Paper/Velocity)</span>
+      <span class="tag">Python / Flask</span>
+      <span class="tag">Bash</span>
+      <span class="tag">Arch Linux</span>
+      <span class="tag">Self-hosting</span>
     </div>
-    
-    <!-- Audio Player -->
-    <div class="audio-player">
-        <button class="player-toggle" id="playerToggle">🎵</button>
-        <div class="player-content" id="playerContent">
-            <h4>Video Controls</h4>
-            <div class="audio-controls">
-                <button class="play-btn" id="playBtn">⏸</button>
-                <div class="volume-control">
-                    <span class="volume-icon">🔊</span>
-                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
-                </div>
-            </div>
-        </div>
+  </header>
+
+  <section id="projects">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>Projects</h2>
+      <div class="sec-rule"></div>
     </div>
-    
-    <header>
-        <div class="container">
-            <div class="profile-image">🔥</div>
-            <h1>FlameGrowl</h1>
-            <p class="tagline">Developer & Creator | 15 Years Old | Germany</p>
-            <div class="verse">
-                <strong>Philippians 4:13</strong> — "I can do all this through him who gives me strength."
-            </div>
+    <div class="projects">
+
+      <div class="proj">
+        <div class="proj-top">
+          <h3>NeonStudios</h3>
+          <span class="proj-status status-active">active</span>
         </div>
-    </header>
-    
-    <main class="container">
-        <!-- About Section -->
-        <div class="section-header">
-            <h2>About Me</h2>
-            <div class="underline"></div>
+        <p>Development org behind the 2c2d network — proxy architecture, custom Paper/Folia forks, and the plugin ecosystem that runs it.</p>
+        <div class="proj-meta"><span class="chip">Velocity</span><span class="chip">Paper</span><span class="chip">Folia</span></div>
+        <a class="link" href="https://neonstudios.dev" target="_blank">neonstudios.dev →</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-top">
+          <h3>2c2d</h3>
+          <span class="proj-status status-live">live server</span>
         </div>
-        <div class="grid">
-            <div class="card">
-                <h3>Who I Am</h3>
-                <p>I'm a passionate 15-year-old developer from Germany with a love for creating digital experiences. As a Christian, I believe in using my talents to make a positive impact in the tech world.</p>
-            </div>
-            <div class="card">
-                <h3>My Journey</h3>
-                <p>Currently expanding my skillset by learning C++ while building on my solid foundation in C# and Unity. Every project is an opportunity to grow and learn something new.</p>
-            </div>
+        <p>Anarchy Minecraft server. Built the multi-tenant proxy with lazy server activation, forced-host routing, and a custom auth layer.</p>
+        <div class="proj-meta"><span class="chip">LibreLogin</span><span class="chip">OAuth2/PKCE</span><span class="chip">DNS/shield config</span></div>
+        <a class="link" href="https://mc.2c2d.top" target="_blank">mc.2c2d.top →</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-top">
+          <h3>RootedMC Launcher</h3>
+          <span class="proj-status status-active">active</span>
         </div>
-        
-        <!-- Projects Section -->
-        <div class="section-header">
-            <h2>Projects & Ventures</h2>
-            <div class="underline"></div>
+        <p>Cross-platform Minecraft launcher. CurseForge modpack import, portable mode for school PCs, offline accounts, macOS crash fixes.</p>
+        <div class="proj-meta"><span class="chip">C#</span><span class="chip">Avalonia</span><span class="chip">Arch repo</span></div>
+        <a class="link" href="https://rootedmc.neonstudios.dev" target="_blank">rootedmc.neonstudios.dev →</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-top">
+          <h3>Nyx &amp; Plugin Suite</h3>
+          <span class="proj-status status-active">active</span>
         </div>
-        <div class="grid">
-            <div class="card">
-                <h3>NeonStudios Development</h3>
-                <p>Proud owner and founder of NeonStudios Development, where creativity meets technical excellence.</p>
-                <ul>
-                    <li>Website: <a href="https://neonstudios.dev" target="_blank">neonstudios.dev</a></li>
-                    <li>GitHub: <a href="https://github.com/neonstudios-dev" target="_blank">github.com/neonstudios-dev</a></li>
-                    <li>Focus on innovative development solutions</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h3>2c2d Minecraft Server</h3>
-                <p>Managing and operating a thriving Minecraft community that brings players together for unique gaming experiences.</p>
-                <ul>
-                    <li>Server: <a href="https://2c2d.top" target="_blank">2c2d.top</a></li>
-                    <li>Community management</li>
-                    <li>Server administration & optimization</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h3>Personal Development</h3>
-                <p>Continuously working on personal projects and contributing to open-source initiatives.</p>
-                <ul>
-                    <li>GitHub: <a href="https://github.com/FlameGrowl-wq" target="_blank">github.com/FlameGrowl-wq</a></li>
-                    <li>Open source contributions</li>
-                    <li>Experimental projects & learning</li>
-                </ul>
-            </div>
-             <div class="card">
-                <h3>ChristCraft</h3>
-                <p>Im the owner of a small private christian minecraft start which is used as a safe space</p>
-                <ul>
-                    <li>Join the discord to get whitelisted  <a href="https://discord.gg/Zy7axKU4Qs target="_blank">https://discord.gg/Zy7axKU4Qs</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Skills Section -->
-        <div class="section-header">
-            <h2>Technical Skills</h2>
-            <div class="underline"></div>
-        </div>
-        <div class="skills-grid">
-            <div class="skill">
-                <h4>C# Development</h4>
-                <p>Experienced in building robust applications</p>
-            </div>
-            <div class="skill">
-                <h4>Unity Engine</h4>
-                <p>Game development and interactive experiences</p>
-            </div>
-            <div class="skill">
-                <h4>C++ (Learning)</h4>
-                <p>Expanding into systems programming</p>
-            </div>
-            <div class="skill">
-                <h4>Server Management</h4>
-                <p>Minecraft server administration</p>
-            </div>
-        </div>
-        
-        <!-- Contact Section -->
-        <div class="section-header">
-            <h2>Get In Touch</h2>
-            <div class="underline"></div>
-        </div>
-        <div class="contact-grid">
-            <div class="contact-card">
-                <h4>Discord</h4>
-                <p><strong>FlameGrowl#7615</strong></p>
-                <a href="https://discord.gg/wrdWaAad7g" target="_blank">Join my Discord Server</a>
-            </div>
-            <div class="contact-card">
-                <h4>Email</h4>
-                <a href="mailto:info@neonstudios.dev">info@neonstudios.dev</a>
-            </div>
-            <div class="contact-card">
-                <h4>GitHub</h4>
-                <a href="https://github.com/FlameGrowl-wq" target="_blank">github.com/FlameGrowl-wq</a>
-            </div>
-        </div>
-    </main>
-    
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 FlameGrowl. Made with passion and faith. 🔥</p>
-        </div>
-    </footer>
-    
-    <script>
-        const video = document.getElementById('bgVideo');
-        const playBtn = document.getElementById('playBtn');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const playerToggle = document.getElementById('playerToggle');
-        const playerContent = document.getElementById('playerContent');
-        const unmuteOverlay = document.getElementById('unmuteOverlay');
-        
-        let isPlaying = true;
-        let isPlayerOpen = false;
-        
-        // Set initial volume
-        video.volume = 0.5;
-        
-        // Unmute overlay click
-        unmuteOverlay.addEventListener('click', () => {
-            video.muted = false;
-            unmuteOverlay.style.display = 'none';
-            video.play();
-        });
-        
-        // Toggle player panel
-        playerToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            isPlayerOpen = !isPlayerOpen;
-            playerContent.classList.toggle('active');
-        });
-        
-        // Close player when clicking outside
-        document.addEventListener('click', (e) => {
-            if (isPlayerOpen && !playerContent.contains(e.target) && e.target !== playerToggle) {
-                isPlayerOpen = false;
-                playerContent.classList.remove('active');
-            }
-        });
-        
-        // Prevent closing when clicking inside player
-        playerContent.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-        
-        // Play/Pause functionality
-        playBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                video.pause();
-                playBtn.textContent = '▶';
-                isPlaying = false;
-            } else {
-                video.muted = false;
-                video.play();
-                playBtn.textContent = '⏸';
-                isPlaying = true;
-            }
-        });
-        
-        // Volume control
-        volumeSlider.addEventListener('input', (e) => {
-            video.volume = e.target.value / 100;
-            video.muted = false;
-            
-            // Update volume icon based on level
-            const volumeIcon = document.querySelector('.volume-icon');
-            if (e.target.value == 0) {
-                volumeIcon.textContent = '🔇';
-                video.muted = true;
-            } else if (e.target.value < 50) {
-                volumeIcon.textContent = '🔉';
-            } else {
-                volumeIcon.textContent = '🔊';
-            }
-        });
-    </script>
+        <p>LuminolMC-based server fork plus the 2ccore plugin: anti-NSFW map renderer, offline invsee, TPS tooling, anti-NBT-bomb protections.</p>
+        <div class="proj-meta"><span class="chip">Java</span><span class="chip">NBT</span><span class="chip">Server perf</span></div>
+        <span class="chip" style="color:var(--text-dim);background:transparent">private project</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>Stack</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="stack-bar">
+      <div class="stack-row"><span class="stack-key">os</span><span class="stack-val">CachyOS <span class="stack-tag">// Arch-based</span></span></div>
+      <div class="stack-row"><span class="stack-key">wm</span><span class="stack-val">Hyprland <span class="stack-tag">// Wayland</span></span></div>
+      <div class="stack-row"><span class="stack-key">shell</span><span class="stack-val">Fish + Starship prompt</span></div>
+      <div class="stack-row"><span class="stack-key">terminal</span><span class="stack-val">Kitty</span></div>
+      <div class="stack-row"><span class="stack-key">browser</span><span class="stack-val">Brave</span></div>
+      <div class="stack-row"><span class="stack-key">hardware</span><span class="stack-val">i7-6700K desktop / RTX 3060 Ti · ThinkPad P14s Gen 2 (home server, Ubuntu)</span></div>
+      <div class="stack-row"><span class="stack-key">languages</span><span class="stack-val">C#, Java, Python, Bash, some C++</span></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Contact</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact">
+        <div class="k">Discord</div>
+        <a href="https://discord.gg/wrdWaAad7g" target="_blank">Join the server</a>
+      </div>
+      <div class="contact">
+        <div class="k">Email</div>
+        <a href="mailto:info@neonstudios.dev">info@neonstudios.dev</a>
+      </div>
+      <div class="contact">
+        <div class="k">GitHub</div>
+        <a href="https://github.com/FlameGrowl-wq" target="_blank">@FlameGrowl-wq</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="prompt">❯</span> echo "built by flamegrowl, 2026"
+  </footer>
+
+</div>
 </body>
 </html>
